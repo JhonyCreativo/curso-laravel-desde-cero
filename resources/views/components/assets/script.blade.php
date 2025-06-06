@@ -1,0 +1,14 @@
+<script src="{{asset('/app-assets/vendors/js/material-vendors.min.js')}}"></script>
+<script src="{{asset('/app-assets/vendors/js/pickers/daterange/moment.min.js')}}"></script>
+<script src="{{asset('/app-assets/vendors/js/pickers/daterange/daterangepicker.js')}}"></script>
+<script src="{{asset('/app-assets/vendors/js/forms/select/select2.full.min.js')}}"></script>
+<script src="{{asset('/app-assets/vendors/js/editors/quill/quill.min.js')}}"></script>
+<script src="{{asset('/app-assets/vendors/js/extensions/dragula.min.js')}}"></script>
+<script src="{{asset('/app-assets/js/core/app-menu.min.js')}}"></script>
+<script src="{{asset('/app-assets/js/core/app.min.js')}}"></script>
+<script src="{{asset('/app-assets/js/scripts/customizer.min.js')}}"></script>
+<script src="{{asset('/app-assets/js/scripts/footer.min.js')}}"></script>
+<script src="{{asset('/app-assets/js/scripts/pages/material-app.min.js')}}"></script>
+<script src="{{asset('/app-assets/js/scripts/pages/app-todo.min.js')}}"></script>
+<script src="{{asset('/src/vue/vue.js')}}"></script>
+<script src="{{asset('/src/axios/axios.min.js')}}"></script>

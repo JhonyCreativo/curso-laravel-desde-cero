@@ -12,7 +12,7 @@ class TareaController extends Controller
      */
     public function index()
     {
-        return "Tarea Controller";
+        return Tarea::where('estado', true)->get();
     }
 
     /**
@@ -20,7 +20,12 @@ class TareaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tarea =  new Tarea();
+        $tarea->descripcion = $request->descripcion;
+        $tarea->completada = false;
+        $tarea->estado = true;
+        $tarea->save();
+        return $tarea;
     }
 
     /**
@@ -28,7 +33,7 @@ class TareaController extends Controller
      */
     public function show(Tarea $tarea)
     {
-        //
+        return $tarea;
     }
 
     /**
@@ -36,7 +41,9 @@ class TareaController extends Controller
      */
     public function update(Request $request, Tarea $tarea)
     {
-        //
+        $tarea->descripcion = $request->descripcion;
+        $tarea->save();
+        return $tarea;
     }
 
     /**
@@ -44,6 +51,8 @@ class TareaController extends Controller
      */
     public function destroy(Tarea $tarea)
     {
-        //
+        $tarea->estado  = false;
+        $tarea->save();
+        return $tarea;
     }
 }
