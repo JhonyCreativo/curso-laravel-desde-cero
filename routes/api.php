@@ -12,6 +12,7 @@ Route::post('tareas', 'TareaController@store');
 Route::get('tareas/{tarea}', 'TareaController@show');
 //actualizar un resgitro del modelo de  tareas
 Route::put('tareas/{tarea}', 'TareaController@update');
+Route::put('tareas-completadas/{tarea}', 'TareaController@updateCompletada');
 //eliminar un resgitro del modelo de  tareas
 Route::delete('tareas/{tarea}', 'TareaController@destroy');
 

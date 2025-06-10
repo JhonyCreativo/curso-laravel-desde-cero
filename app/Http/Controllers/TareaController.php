@@ -45,6 +45,12 @@ class TareaController extends Controller
         $tarea->save();
         return $tarea;
     }
+    public function updateCompletada(Request $request, Tarea $tarea)
+    {
+        $tarea->completada = $request->completada;
+        $tarea->save();
+        return $tarea;
+    }
 
     /**
      * Remove the specified resource from storage.
