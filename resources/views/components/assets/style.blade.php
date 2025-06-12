@@ -19,3 +19,4 @@
 <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/core/menu/menu-types/material-vertical-menu-modern.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/pages/app-todo.min.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.0/dist/sweetalert2.min.css" rel="stylesheet">

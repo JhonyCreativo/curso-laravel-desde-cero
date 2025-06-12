@@ -16,6 +16,11 @@ Route::put('tareas-completadas/{tarea}', 'TareaController@updateCompletada');
 //eliminar un resgitro del modelo de  tareas
 Route::delete('tareas/{tarea}', 'TareaController@destroy');
 
+//OPCION DE BUSCAR TAREAS
+Route::post('buscar-tareas', 'TareaController@buscar');
+
+
+
 // Route::put('tareas/{tarea}', 'TareaController@update');
 
 

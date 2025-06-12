@@ -12,3 +12,4 @@
 <script src="{{asset('/app-assets/js/scripts/pages/app-todo.min.js')}}"></script>
 <script src="{{asset('/src/vue/vue.js')}}"></script>
 <script src="{{asset('/src/axios/axios.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.0/dist/sweetalert2.all.min.js"></script>

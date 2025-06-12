@@ -61,4 +61,8 @@ class TareaController extends Controller
         $tarea->save();
         return $tarea;
     }
+    public function buscar(Request $request){
+        $buscar = $request->buscar;
+        return Tarea::where('descripcion', 'like', '%'.$buscar.'%')->where('estado', true)->get();
+    }
 }

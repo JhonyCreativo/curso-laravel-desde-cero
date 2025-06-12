@@ -109,7 +109,7 @@
                                     <i class="ft-align-justify"></i>
                                 </div>
                                 <fieldset class="form-group position-relative has-icon-left m-0 flex-grow-1 pl-2">
-                                    <input type="text" class="form-control" v-model="buscar" placeholder="Buscar tarea...">
+                                    <input type="text" class="form-control" v-model="buscar" placeholder="Buscar tarea..." @keyup="BuscarTarea()">
                                     <div class="form-control-position">
                                         <i class="ft-search"></i>
                                     </div>
@@ -119,7 +119,7 @@
                             <div class="todo-task-list list-group">
                                 <!-- task list start -->
                                 <ul class="todo-task-list-wrapper list-unstyled" id="todo-task-list-drag">
-                                    <li v-for="(tarea,index) in TareaFiltros"  class="todo-item" data-name="David Smith">
+                                    <li v-for="(tarea,index) in tareas"  class="todo-item" data-name="David Smith">
                                         <div
                                             
                                             class="todo-title-wrapper d-flex justify-content-sm-between justify-content-end align-items-center" :class="{'completed':tarea.completada==1}">
@@ -145,7 +145,6 @@
                                 
 
                                 </ul>
-                                
                                 <!-- task list end -->
                                 <div class="no-results">
                                     <h5>No Items Found</h5>
@@ -177,17 +176,6 @@
                 showSidebar:false,
                 actualizar:false,
                 buscar:''
-            }
-        },
-        computed:{
-            TareaFiltros(){
-                if(this.buscar==""){
-                    return this.tareas
-                }else{
-                    return this.tareas.filter((tarea)=>{
-                        return tarea.descripcion.toLowerCase().indexOf(this.buscar.toLowerCase())>-1
-                    })
-                }
             }
         },
         //los metodos que le dan dinamismo a la aplicacion se le conoce tambien como funciones 
@@ -252,7 +240,13 @@
                 this.actualizar = true;
                 this.showSidebar = true;
             },
-           
+            async BuscarTarea(){
+                let buscar = this.buscar;
+                let respuesta = await axios.post("{{url('/')}}"+'/api/buscar-tareas',{
+                    buscar
+                });
+                this.tareas = respuesta.data;
+            }
 
         },
         mounted(){
