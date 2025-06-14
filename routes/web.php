@@ -7,6 +7,11 @@ Route::get('/', function () {
 });
 
 Route::view('/welcome', 'welcome');
+Route::view('/tareas', 'welcome');
+Route::view('/marcas', 'configuracion.marcas');
+Route::view('/medidas', 'configuracion.medidas');
+Route::view('/categorias', 'configuracion.categorias');
+Route::view('/productos', 'configuracion.productos');
 //otra forma 
 Route::get('/welcome', function () {
    return view('welcome');

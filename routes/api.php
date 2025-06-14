@@ -20,6 +20,10 @@ Route::delete('tareas/{tarea}', 'TareaController@destroy');
 Route::post('buscar-tareas', 'TareaController@buscar');
 
 
+Route::apiResource('marcas', 'MarcaController');
+Route::apiResource('medidas', 'MedidaController');
+Route::apiResource('categorias', 'CategoriaController');
+Route::apiResource('productos', 'ProductoController');
 
 // Route::put('tareas/{tarea}', 'TareaController@update');
 

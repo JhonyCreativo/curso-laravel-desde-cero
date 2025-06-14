@@ -14,7 +14,7 @@
                         <!-- new task button -->
                         <button type="button" class="btn btn-danger btn-glow add-task-btn btn-block my-1" @click="(showSidebar = true, actualizar=false)">
                             <i class="ft-plus"></i>
-                            <span>Nueva Tarea</span>
+                            <span>Nueva Categoria</span>
                         </button>
                     </div>
                     <!-- sidebar list start -->
@@ -22,7 +22,7 @@
                        
                         <label class="filter-label mt-2 mb-1 pt-25">Configuración</label>
                         <div class="list-group">
-                            <a :href="url('tareas')" class="list-group-item border-0 active" >
+                            <a :href="url('tareas')" class="list-group-item border-0">
                                 <span class="fonticon-wrap mr-50">
                                     <i class="ft-star"></i>
                                 </span>
@@ -34,7 +34,7 @@
                                 </span>
                                 <span>Marcas</span>
                             </a>
-                            <a :href="url('categorias')" class="list-group-item border-0 ">
+                            <a :href="url('categorias')" class="list-group-item border-0 active">
                                 <span class="fonticon-wrap mr-50">
                                     <i class="ft-star"></i>
                                 </span>
@@ -53,7 +53,6 @@
                                 <span>Productos</span>
                             </a>
                             
-                            
                         </div>
 
                     </div>
@@ -65,7 +64,7 @@
                 <div class="card shadow-none p-0 m-0">
                     <div class="card-header border-bottom py-75">
                         <div class="task-header d-flex justify-content-between align-items-center">
-                            <h5 class="new-task-title mb-0">Nueva Tarea</h5>
+                            <h5 class="new-task-title mb-0">Nueva Categoria</h5>
                             
                             
                         </div>
@@ -78,7 +77,7 @@
                         <div class="card-content">
                             <div class="card-body py-0 border-bottom">
                                 <div class="form-group">
-                                   <input type="text" name="" class="form-control" placeholder="Tarea Descripcion" id="" v-model="model.descripcion">
+                                   <input type="text" name="" class="form-control" placeholder="Nombre" id="" v-model="model.name">
                                    
                                 </div>
                                
@@ -88,8 +87,8 @@
                                 
                                 <div class="mt-1 d-flex justify-content-end">
                                     <button type="button" class="btn btn-dark add-todo" @click="showSidebar = false">Cerrar</button>
-                                    <button type="button" class="btn btn-danger update-todo" v-if="actualizar==false" @click="GuardarTarea()" >Guardar</button>
-                                    <button type="button" class="btn btn-success update-todo" v-else @click="ActualizarTarea()" >Actualizar</button>
+                                    <button type="button" class="btn btn-danger update-todo" v-if="actualizar==false" @click="GuardarMarca()" >Guardar</button>
+                                    <button type="button" class="btn btn-success update-todo" v-else @click="ActualizarMarca()" >Actualizar</button>
                                 </div>
                             </div>
                         </div>
@@ -116,7 +115,7 @@
                                     <i class="ft-align-justify"></i>
                                 </div>
                                 <fieldset class="form-group position-relative has-icon-left m-0 flex-grow-1 pl-2">
-                                    <input type="text" class="form-control" v-model="buscar" placeholder="Buscar tarea...">
+                                    <input type="text" class="form-control" v-model="buscar" placeholder="Buscar...">
                                     <div class="form-control-position">
                                         <i class="ft-search"></i>
                                     </div>
@@ -126,26 +125,20 @@
                             <div class="todo-task-list list-group">
                                 <!-- task list start -->
                                 <ul class="todo-task-list-wrapper list-unstyled" id="todo-task-list-drag">
-                                    <li v-for="(tarea,index) in TareaFiltros"  class="todo-item" data-name="David Smith">
+                                    <li v-for="(marca,index) in MarcaFiltros"  class="todo-item" data-name="David Smith">
                                         <div
                                             
-                                            class="todo-title-wrapper d-flex justify-content-sm-between justify-content-end align-items-center" :class="{'completed':tarea.completada==1}">
+                                            class="todo-title-wrapper d-flex justify-content-sm-between justify-content-end align-items-center" :class="{'completed':marca.completada==1}">
                                             <div class="todo-title-area d-flex">
                                                 <i class='ft-more-vertical handle'></i>
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" :id="'checkbox'+index" @click="CompletarTarea(tarea)" :checked="tarea.completada==1">
-                                                    <label class="custom-control-label" :for="'checkbox'+index"></label>
-                                                </div>
-                                                <p @click="seleccionarTarea(tarea)" class="todo-title mx-50 m-0   truncate">{{tarea.descripcion}}</p>
+                                              
+                                                <p @click="SeleccionarMarca(marca)" class="todo-title mx-50 m-0   truncate">{{marca.name}}</p>
                                             </div>
                                             <div class="todo-item-action d-flex align-items-center">
 
-                                                <div class="avatar ml-1">
-                                                    <img :src="asset('app-assets/images/portrait/small/avatar-s-1.png')"
-                                                        alt="avatar" height="30" width="30">
-                                                </div>
-                                                <a class='todo-item-favorite ml-75'><i class="ft-star"></i></a>
-                                                <a class='todo-item-delete ml-75' @click="EliminarTarea(tarea.id)"><i class="ft-trash-2"></i></a>
+                                                
+                                             
+                                                <a class='todo-item-delete ml-75' @click="EliminarMarca(marca.id)"><i class="ft-trash-2"></i></a>
                                             </div>
                                         </div>
                                     </li>
@@ -177,9 +170,9 @@
         //data sirve para almacenar los datos en una aplicacion de vue
         data(){
             return {
-                tareas:[],
+                marcas:[],
                 model:{
-                    descripcion:'',
+                    name:'',
                 },
                 showSidebar:false,
                 actualizar:false,
@@ -187,42 +180,40 @@
             }
         },
         computed:{
-            TareaFiltros(){
+            MarcaFiltros(){
                 if(this.buscar==""){
-                    return this.tareas
+                    return this.marcas
                 }else{
-                    return this.tareas.filter((tarea)=>{
-                        return tarea.descripcion.toLowerCase().indexOf(this.buscar.toLowerCase())>-1
+                    return this.marcas.filter((marca)=>{
+                        return marca.name.toLowerCase().indexOf(this.buscar.toLowerCase())>-1
                     })
                 }
             }
         },
         //los metodos que le dan dinamismo a la aplicacion se le conoce tambien como funciones 
         methods:{
-            asset(path){
-                return "{{asset('/')}}"+'/app-assets/images/portrait/small/avatar-s-1.png';
-            },
+            
             url(url){
                 return "{{url('/')}}/"+url;
             },
-            async obtenerTareas(){
-                const respuesta = await axios.get("{{url('/')}}"+'/api/tareas');
-                this.tareas = respuesta.data;
+            async obtenerMarcas(){
+                const respuesta = await axios.get("{{url('/')}}"+'/api/categorias');
+                this.marcas = respuesta.data;
             },
-            async GuardarTarea(){
-                let respuesta = await axios.post("{{url('/')}}"+'/api/tareas',this.model);
-                // await this.obtenerTareas();
-                this.tareas.push(respuesta.data);
-                this.model.descripcion = '';
+            async GuardarMarca(){
+                let respuesta = await axios.post("{{url('/')}}"+'/api/categorias',this.model);
+                // await this.obtenerMarcas();
+                this.marcas.push(respuesta.data);
+                this.model.name = '';
                 this.showSidebar = false; 
             },
-            async ActualizarTarea(){
-                let respuesta = await axios.put("{{url('/')}}"+'/api/tareas/'+this.model.id,this.model);
-                await this.obtenerTareas();
-                this.model.descripcion = '';
+            async ActualizarMarca(){
+                let respuesta = await axios.put("{{url('/')}}"+'/api/categorias/'+this.model.id,this.model);
+                await this.obtenerMarcas();
+                this.model.name = '';
                 this.showSidebar = false; 
             },
-            EliminarTarea(id){ 
+            EliminarMarca(id){ 
                 
                const swalWithBootstrapButtons = Swal.mixin({
                     customClass: {
@@ -241,8 +232,8 @@
                 reverseButtons: true
                 }).then(async (result) => {
                     if (result.isConfirmed) {
-                        let respuesta = await axios.delete("{{url('/')}}"+'/api/tareas/'+id);
-                        await this.obtenerTareas();
+                        let respuesta = await axios.delete("{{url('/')}}"+'/api/categorias/'+id);
+                        await this.obtenerMarcas();
                         swalWithBootstrapButtons.fire({
                             title: "Eliminado!",
                             text: "Tu tarea ha sido eliminada.",
@@ -252,13 +243,9 @@
                     } 
                 });
             },
-            async CompletarTarea(tarea){
-                tarea.completada = !tarea.completada;
-                let respuesta = await axios.put("{{url('/')}}"+'/api/tareas-completadas/'+tarea.id,tarea);
-                await this.obtenerTareas();
-            },
-            seleccionarTarea(tarea){
-                this.model = tarea;
+           
+            SeleccionarMarca(marca){
+                this.model = marca;
                 this.actualizar = true;
                 this.showSidebar = true;
             },
@@ -267,7 +254,7 @@
         },
         mounted(){
             this.$nextTick( function() {
-                this.obtenerTareas();
+                this.obtenerMarcas();
             });
         }
     }).mount('#app');
