@@ -14,7 +14,7 @@
                         <!-- new task button -->
                         <button type="button" class="btn btn-danger btn-glow add-task-btn btn-block my-1" @click="(showSidebar = true, actualizar=false)">
                             <i class="ft-plus"></i>
-                            <span>Nuevo Producto</span>
+                            <span>Nuevo Clientes</span>
                         </button>
                     </div>
                     <!-- sidebar list start -->
@@ -46,7 +46,7 @@
                                 </span>
                                 <span>Medidas</span>
                             </a>
-                            <a :href="url('productos')" class="list-group-item border-0 active">
+                            <a :href="url('productos')" class="list-group-item border-0 ">
                                 <span class="fonticon-wrap mr-50">
                                     <i class="ft-star"></i>
                                 </span>
@@ -58,7 +58,7 @@
                                 </span>
                                 <span>Documentos</span>
                             </a>
-                             <a :href="url('clientes')" class="list-group-item border-0 ">
+                             <a :href="url('clientes')" class="list-group-item border-0 active">
                                 <span class="fonticon-wrap mr-50">
                                     <i class="ft-star"></i>
                                 </span>
@@ -83,7 +83,7 @@
                 <div class="card shadow-none p-0 m-0">
                     <div class="card-header border-bottom py-75">
                         <div class="task-header d-flex justify-content-between align-items-center">
-                            <h5 class="new-task-title mb-0">Nuevo Producto</h5>
+                            <h5 class="new-task-title mb-0">Nuevo Cliente</h5>
                             
                             
                         </div>
@@ -99,48 +99,33 @@
                                    <input type="text" name="" class="form-control" placeholder="Nombre" id="" v-model="model.name">
                                    
                                 </div>
+                               
                                 <div class="form-group">
-                                   <input type="text" name="" class="form-control" placeholder="Codigo de Barra" id="" v-model="model.codigo_barra">
+                                   <input type="text" name="" class="form-control" placeholder="Apellido" id="" v-model="model.apellido">
                                    
                                 </div>
                                
+                               
                                 <div class="form-group">
-                                   <input type="text" name="" class="form-control" placeholder="Precio Costo" id="" v-model="model.costo">
-                                   
-                                </div>
-                                <div class="form-group">
-                                   <input type="text" name="" class="form-control" placeholder="Precio Venta" id="" v-model="model.precio">
-                                   
-                                </div>
-                                <div class="form-group">
-                                   <input type="text" name="" class="form-control" placeholder="Stock Minimo" id="" v-model="model.stock_minimo">
-                                   
-                                </div>
-                                <div class="form-group">
-                                  <select name="" class="form-control" v-model="model.marca_id">
-                                    <option value="0" selected> Seleccionar Marca</option>
-                                    <template v-for="marca in marcas">
-                                        <option :value="marca.id">{{marca.name}}</option>
+                                  <select name="" class="form-control" v-model="model.documento_id">
+                                    <option value="0" selected> Seleccionar Documento</option>
+                                    <template v-for="documento in documentos">
+                                        <option :value="documento.id">{{documento.name}}</option>
                                     </template>
                                   </select>
                                    
                                 </div>
                                 <div class="form-group">
-                                  <select name="" class="form-control" v-model="model.medida_id">
-                                    <option value="0" selected> Seleccionar medida</option>
-                                    <template v-for="medida in medidas">
-                                        <option :value="medida.id">{{medida.name}} | {{medida.prefijo}}</option>
-                                    </template>
-                                  </select>
+                                   <input type="text" name="" class="form-control" placeholder="N° documento" id="" v-model="model.n_documento">
+                                   
+                                </div>
+                        
+                                <div class="form-group">
+                                   <input type="text" name="" class="form-control" placeholder="Correo" id="" v-model="model.correo">
                                    
                                 </div>
                                 <div class="form-group">
-                                  <select name="" class="form-control" v-model="model.categoria_id">
-                                    <option value="0" selected> Seleccionar categoria</option>
-                                    <template v-for="categoria in categorias">
-                                        <option :value="categoria.id">{{categoria.name}}</option>
-                                    </template>
-                                  </select>
+                                   <input type="text" name="" class="form-control" placeholder="Telefono" id="" v-model="model.telefono">
                                    
                                 </div>
                                
@@ -189,22 +174,23 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Codigo de Barra</th>
                                             <th scope="col">Nombre</th>
-                                            <th scope="col">Categoria</th>
-                                            <th scope="col">Medida</th>
-                                            <th scope="col">Marca</th>
-                                            <th scope="col">Acciones</th>
+                                            <th scope="col">Apellido</th>
+                                            <th scope="col">Documento</th>
+                                            <th scope="col">Nª Documento</th>
+                                            <th scope="col">Correo</th>
+                                            <th scope="col">Telefono</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <template v-for="(producto,index) in ProductoFiltros" >
+                                        <template v-for="(producto,index) in ClientesFiltros" >
                                             <tr>
-                                                <td>{{producto.codigo_barra}}</td>
                                                 <td>{{producto.name}}</td>
-                                                <td>{{producto.categoria.name}}</td>
-                                                <td>{{producto.medida.name}} - {{producto.medida.prefijo}}</td>
-                                                <td>{{producto.marca.name}}</td>
+                                                <td>{{producto.apellido}}</td>
+                                                <td>{{producto.documento.name}}</td>
+                                                <td>{{producto.n_documento}}</td>
+                                                <td>{{producto.correo}}</td>
+                                                <td>{{producto.telefono}}</td>
                                                 <td>
                                                     <i class="ft-edit-2" @click="SeleccionarProducto(producto)"></i>
                                                     <i class="ft-trash-2" @click="EliminarProducto(producto.id)"></i>
@@ -235,19 +221,18 @@
         //data sirve para almacenar los datos en una aplicacion de vue
         data(){
             return {
-                productos:[],
-                marcas:[],
-                medidas:[],
-                categorias:[],
+                documentos:[],
+                clientes:[],
+               
                 model:{
                     name:'',
-                    codigo_barra:'',
-                    medida_id:0,
-                    marca_id:0,
-                    categoria_id:0,
-                    precio:0,
-                    costo:0,
-                    stock_minimo:0
+                    apellido:'',
+                    n_documento:'',
+                    correo:'',
+                    telefono:'',
+                    documento_id:0,
+                   
+                  
                 },
                 showSidebar:false,
                 actualizar:false,
@@ -255,11 +240,11 @@
             }
         },
         computed:{
-            ProductoFiltros(){
+            ClientesFiltros(){
                 if(this.buscar==""){
-                    return this.productos
+                    return this.clientes
                 }else{
-                    return this.productos.filter((medida)=>{
+                    return this.clientes.filter((medida)=>{
                         return medida.name.toLowerCase().indexOf(this.buscar.toLowerCase())>-1 || medida.codigo_barra.toLowerCase().indexOf(this.buscar.toLowerCase())>-1
                     })
                 }
@@ -271,39 +256,35 @@
             url(url){
                 return "{{url('/')}}/"+url;
             },
-            async obtenerProductos(){
-                const respuesta = await axios.get("{{url('/')}}"+'/api/productos');
-                this.productos = respuesta.data;
+            async obtenerclientes(){
+                const respuesta = await axios.get("{{url('/')}}"+'/api/clientes');
+                this.clientes = respuesta.data;
             },
             async get_data(path){
                 const respuesta = await axios.get("{{url('/')}}"+'/api/'+path);
                 return respuesta.data
             },
             async GuardarProducto(){
-                let respuesta = await axios.post("{{url('/')}}"+'/api/productos',this.model);
-                await this.obtenerProductos();
-                // this.productos.push(respuesta.data);
+                let respuesta = await axios.post("{{url('/')}}"+'/api/clientes',this.model);
+                await this.obtenerclientes();
+                // this.clientes.push(respuesta.data);
                 this.model.name = '';
-                this.model.codigo_barra = '';
-                this.model.precio = 0;
-                this.model.costo = 0;
-                this.model.stock_minimo = 0;
-                this.model.categoria_id = 0;
-                this.model.marca_id = 0;
-                this.model.medida_id = 0;
+                this.model.apellido = '';
+                this.model.n_documento = '';
+                this.model.correo = '';
+                this.model.telefono = '';
+                this.model.documento_id = 0;
                 this.showSidebar = false; 
             },
             async ActualizarProducto(){
-                let respuesta = await axios.put("{{url('/')}}"+'/api/productos/'+this.model.id,this.model);
-                await this.obtenerProductos();
+                let respuesta = await axios.put("{{url('/')}}"+'/api/clientes/'+this.model.id,this.model);
+                await this.obtenerclientes();
                 this.model.name = '';
-                this.model.codigo_barra = '';
-                this.model.precio = 0;
-                this.model.costo = 0;
-                this.model.stock_minimo = 0;
-                this.model.categoria_id = 0;
-                this.model.marca_id = 0;
-                this.model.medida_id = 0;
+                this.model.apellido = '';
+                this.model.n_documento = '';
+                this.model.correo = '';
+                this.model.telefono = '';
+                this.model.documento_id = 0;
                 this.showSidebar = false; 
             },
             EliminarProducto(id){ 
@@ -325,11 +306,11 @@
                 reverseButtons: true
                 }).then(async (result) => {
                     if (result.isConfirmed) {
-                        let respuesta = await axios.delete("{{url('/')}}"+'/api/productos/'+id);
-                        await this.obtenerProductos();
+                        let respuesta = await axios.delete("{{url('/')}}"+'/api/clientes/'+id);
+                        await this.obtenerclientes();
                         swalWithBootstrapButtons.fire({
                             title: "Eliminado!",
-                            text: "Tu tarea ha sido eliminada.",
+                            text: "Tu Cliente ha sido eliminada.",
                             icon: "success",
                             timer:1000
                         });
@@ -349,15 +330,13 @@
         mounted(){
            
             this.$nextTick(async function() {
-                await this.obtenerProductos();
+                await this.obtenerclientes();
                 await Promise.all([
-                    this.get_data('marcas'),
-                    this.get_data('categorias'),
-                    this.get_data('medidas')
+                    this.get_data('documentos'),
+     
                 ]).then((values) => {
-                    this.marcas = values[0];
-                    this.categorias = values[1];
-                    this.medidas = values[2];
+                    this.documentos = values[0];
+             
                 })
             });
         },

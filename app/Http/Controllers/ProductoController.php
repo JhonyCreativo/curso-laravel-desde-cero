@@ -36,7 +36,7 @@ class ProductoController extends Controller
         $producto->medida_id = $request->medida_id;
         $producto->marca_id = $request->marca_id;
         $producto->save();
-        return $producto;   
+        return $this->show($producto);  
     }
 
     /**
@@ -44,6 +44,7 @@ class ProductoController extends Controller
      */
     public function show(Producto $producto)
     {
+        $producto->load(['Medida','Marca','Categoria']);
         return $producto;
     }
 

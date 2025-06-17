@@ -52,9 +52,28 @@
                                 </span>
                                 <span>Productos</span>
                             </a>
-                            
+                               <a :href="url('documentos')" class="list-group-item border-0 ">
+                                <span class="fonticon-wrap mr-50">
+                                    <i class="ft-star"></i>
+                                </span>
+                                <span>Documentos</span>
+                            </a>
+                             <a :href="url('clientes')" class="list-group-item border-0 ">
+                                <span class="fonticon-wrap mr-50">
+                                    <i class="ft-star"></i>
+                                </span>
+                                <span>Clientes</span>
+                            </a>
                         </div>
-
+                        <label class="filter-label mt-2 mb-1 pt-25">POS</label>
+                        <div class="list-group">
+                            <a :href="url('pos')" class="list-group-item border-0">
+                                <span class="fonticon-wrap mr-50">
+                                    <i class="ft-star"></i>
+                                </span>
+                                <span>POS</span>
+                            </a> 
+                        </div>
                     </div>
                     <!-- sidebar list end -->
                 </div>

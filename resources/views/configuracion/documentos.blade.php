@@ -14,7 +14,7 @@
                         <!-- new task button -->
                         <button type="button" class="btn btn-danger btn-glow add-task-btn btn-block my-1" @click="(showSidebar = true, actualizar=false)">
                             <i class="ft-plus"></i>
-                            <span>Nuevo Producto</span>
+                            <span>Nueva Documento</span>
                         </button>
                     </div>
                     <!-- sidebar list start -->
@@ -46,13 +46,13 @@
                                 </span>
                                 <span>Medidas</span>
                             </a>
-                            <a :href="url('productos')" class="list-group-item border-0 active">
+                            <a :href="url('productos')" class="list-group-item border-0 ">
                                 <span class="fonticon-wrap mr-50">
                                     <i class="ft-star"></i>
                                 </span>
                                 <span>Productos</span>
                             </a>
-                               <a :href="url('documentos')" class="list-group-item border-0 ">
+                            <a :href="url('documentos')" class="list-group-item border-0 active">
                                 <span class="fonticon-wrap mr-50">
                                     <i class="ft-star"></i>
                                 </span>
@@ -65,15 +65,7 @@
                                 <span>Clientes</span>
                             </a>
                         </div>
-                        <label class="filter-label mt-2 mb-1 pt-25">POS</label>
-                        <div class="list-group">
-                            <a :href="url('pos')" class="list-group-item border-0">
-                                <span class="fonticon-wrap mr-50">
-                                    <i class="ft-star"></i>
-                                </span>
-                                <span>POS</span>
-                            </a> 
-                        </div>
+
                     </div>
                     <!-- sidebar list end -->
                 </div>
@@ -83,7 +75,7 @@
                 <div class="card shadow-none p-0 m-0">
                     <div class="card-header border-bottom py-75">
                         <div class="task-header d-flex justify-content-between align-items-center">
-                            <h5 class="new-task-title mb-0">Nuevo Producto</h5>
+                            <h5 class="new-task-title mb-0">Nueva Documento</h5>
                             
                             
                         </div>
@@ -99,50 +91,6 @@
                                    <input type="text" name="" class="form-control" placeholder="Nombre" id="" v-model="model.name">
                                    
                                 </div>
-                                <div class="form-group">
-                                   <input type="text" name="" class="form-control" placeholder="Codigo de Barra" id="" v-model="model.codigo_barra">
-                                   
-                                </div>
-                               
-                                <div class="form-group">
-                                   <input type="text" name="" class="form-control" placeholder="Precio Costo" id="" v-model="model.costo">
-                                   
-                                </div>
-                                <div class="form-group">
-                                   <input type="text" name="" class="form-control" placeholder="Precio Venta" id="" v-model="model.precio">
-                                   
-                                </div>
-                                <div class="form-group">
-                                   <input type="text" name="" class="form-control" placeholder="Stock Minimo" id="" v-model="model.stock_minimo">
-                                   
-                                </div>
-                                <div class="form-group">
-                                  <select name="" class="form-control" v-model="model.marca_id">
-                                    <option value="0" selected> Seleccionar Marca</option>
-                                    <template v-for="marca in marcas">
-                                        <option :value="marca.id">{{marca.name}}</option>
-                                    </template>
-                                  </select>
-                                   
-                                </div>
-                                <div class="form-group">
-                                  <select name="" class="form-control" v-model="model.medida_id">
-                                    <option value="0" selected> Seleccionar medida</option>
-                                    <template v-for="medida in medidas">
-                                        <option :value="medida.id">{{medida.name}} | {{medida.prefijo}}</option>
-                                    </template>
-                                  </select>
-                                   
-                                </div>
-                                <div class="form-group">
-                                  <select name="" class="form-control" v-model="model.categoria_id">
-                                    <option value="0" selected> Seleccionar categoria</option>
-                                    <template v-for="categoria in categorias">
-                                        <option :value="categoria.id">{{categoria.name}}</option>
-                                    </template>
-                                  </select>
-                                   
-                                </div>
                                
                             </div>
                 
@@ -150,8 +98,8 @@
                                 
                                 <div class="mt-1 d-flex justify-content-end">
                                     <button type="button" class="btn btn-dark add-todo" @click="showSidebar = false">Cerrar</button>
-                                    <button type="button" class="btn btn-danger update-todo" v-if="actualizar==false" @click="GuardarProducto()" >Guardar</button>
-                                    <button type="button" class="btn btn-success update-todo" v-else @click="ActualizarProducto()" >Actualizar</button>
+                                    <button type="button" class="btn btn-danger update-todo" v-if="actualizar==false" @click="GuardarMarca()" >Guardar</button>
+                                    <button type="button" class="btn btn-success update-todo" v-else @click="ActualizarMarca()" >Actualizar</button>
                                 </div>
                             </div>
                         </div>
@@ -186,35 +134,33 @@
                               
                             </div>
                             <div class="todo-task-list list-group">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Codigo de Barra</th>
-                                            <th scope="col">Nombre</th>
-                                            <th scope="col">Categoria</th>
-                                            <th scope="col">Medida</th>
-                                            <th scope="col">Marca</th>
-                                            <th scope="col">Acciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <template v-for="(producto,index) in ProductoFiltros" >
-                                            <tr>
-                                                <td>{{producto.codigo_barra}}</td>
-                                                <td>{{producto.name}}</td>
-                                                <td>{{producto.categoria.name}}</td>
-                                                <td>{{producto.medida.name}} - {{producto.medida.prefijo}}</td>
-                                                <td>{{producto.marca.name}}</td>
-                                                <td>
-                                                    <i class="ft-edit-2" @click="SeleccionarProducto(producto)"></i>
-                                                    <i class="ft-trash-2" @click="EliminarProducto(producto.id)"></i>
-                                                </td>
-                                            </tr>
-                                        </template>
-                                    </tbody>
-                                </table>
                                 <!-- task list start -->
-                             
+                                <ul class="todo-task-list-wrapper list-unstyled" id="todo-task-list-drag">
+                                    <li v-for="(marca,index) in MarcaFiltros"  class="todo-item" data-name="David Smith">
+                                        <div
+                                            
+                                            class="todo-title-wrapper d-flex justify-content-sm-between justify-content-end align-items-center" :class="{'completed':marca.completada==1}">
+                                            <div class="todo-title-area d-flex">
+                                                <i class='ft-more-vertical handle'></i>
+                                              
+                                                <p @click="SeleccionarMarca(marca)" class="todo-title mx-50 m-0   truncate">{{marca.name}}</p>
+                                            </div>
+                                            <div class="todo-item-action d-flex align-items-center">
+
+                                                
+                                             
+                                                <a class='todo-item-delete ml-75' @click="EliminarMarca(marca.id)"><i class="ft-trash-2"></i></a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                
+
+                                </ul>
+                                
+                                <!-- task list end -->
+                                <div class="no-results">
+                                    <h5>No Items Found</h5>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -235,19 +181,9 @@
         //data sirve para almacenar los datos en una aplicacion de vue
         data(){
             return {
-                productos:[],
                 marcas:[],
-                medidas:[],
-                categorias:[],
                 model:{
                     name:'',
-                    codigo_barra:'',
-                    medida_id:0,
-                    marca_id:0,
-                    categoria_id:0,
-                    precio:0,
-                    costo:0,
-                    stock_minimo:0
                 },
                 showSidebar:false,
                 actualizar:false,
@@ -255,12 +191,12 @@
             }
         },
         computed:{
-            ProductoFiltros(){
+            MarcaFiltros(){
                 if(this.buscar==""){
-                    return this.productos
+                    return this.marcas
                 }else{
-                    return this.productos.filter((medida)=>{
-                        return medida.name.toLowerCase().indexOf(this.buscar.toLowerCase())>-1 || medida.codigo_barra.toLowerCase().indexOf(this.buscar.toLowerCase())>-1
+                    return this.marcas.filter((marca)=>{
+                        return marca.name.toLowerCase().indexOf(this.buscar.toLowerCase())>-1
                     })
                 }
             }
@@ -271,42 +207,24 @@
             url(url){
                 return "{{url('/')}}/"+url;
             },
-            async obtenerProductos(){
-                const respuesta = await axios.get("{{url('/')}}"+'/api/productos');
-                this.productos = respuesta.data;
+            async obtenerMarcas(){
+                const respuesta = await axios.get("{{url('/')}}"+'/api/documentos');
+                this.marcas = respuesta.data;
             },
-            async get_data(path){
-                const respuesta = await axios.get("{{url('/')}}"+'/api/'+path);
-                return respuesta.data
-            },
-            async GuardarProducto(){
-                let respuesta = await axios.post("{{url('/')}}"+'/api/productos',this.model);
-                await this.obtenerProductos();
-                // this.productos.push(respuesta.data);
+            async GuardarMarca(){
+                let respuesta = await axios.post("{{url('/')}}"+'/api/documentos',this.model);
+                // await this.obtenerMarcas();
+                this.marcas.push(respuesta.data);
                 this.model.name = '';
-                this.model.codigo_barra = '';
-                this.model.precio = 0;
-                this.model.costo = 0;
-                this.model.stock_minimo = 0;
-                this.model.categoria_id = 0;
-                this.model.marca_id = 0;
-                this.model.medida_id = 0;
                 this.showSidebar = false; 
             },
-            async ActualizarProducto(){
-                let respuesta = await axios.put("{{url('/')}}"+'/api/productos/'+this.model.id,this.model);
-                await this.obtenerProductos();
+            async ActualizarMarca(){
+                let respuesta = await axios.put("{{url('/')}}"+'/api/documentos/'+this.model.id,this.model);
+                await this.obtenerMarcas();
                 this.model.name = '';
-                this.model.codigo_barra = '';
-                this.model.precio = 0;
-                this.model.costo = 0;
-                this.model.stock_minimo = 0;
-                this.model.categoria_id = 0;
-                this.model.marca_id = 0;
-                this.model.medida_id = 0;
                 this.showSidebar = false; 
             },
-            EliminarProducto(id){ 
+            EliminarMarca(id){ 
                 
                const swalWithBootstrapButtons = Swal.mixin({
                     customClass: {
@@ -325,8 +243,8 @@
                 reverseButtons: true
                 }).then(async (result) => {
                     if (result.isConfirmed) {
-                        let respuesta = await axios.delete("{{url('/')}}"+'/api/productos/'+id);
-                        await this.obtenerProductos();
+                        let respuesta = await axios.delete("{{url('/')}}"+'/api/documentos/'+id);
+                        await this.obtenerMarcas();
                         swalWithBootstrapButtons.fire({
                             title: "Eliminado!",
                             text: "Tu tarea ha sido eliminada.",
@@ -337,31 +255,19 @@
                 });
             },
            
-            SeleccionarProducto(producto){
-                this.model = producto;
+            SeleccionarMarca(marca){
+                this.model = marca;
                 this.actualizar = true;
                 this.showSidebar = true;
             },
            
 
         },
-        
         mounted(){
-           
-            this.$nextTick(async function() {
-                await this.obtenerProductos();
-                await Promise.all([
-                    this.get_data('marcas'),
-                    this.get_data('categorias'),
-                    this.get_data('medidas')
-                ]).then((values) => {
-                    this.marcas = values[0];
-                    this.categorias = values[1];
-                    this.medidas = values[2];
-                })
+            this.$nextTick( function() {
+                this.obtenerMarcas();
             });
-        },
-       
+        }
     }).mount('#app');
 </script>
 @endslot

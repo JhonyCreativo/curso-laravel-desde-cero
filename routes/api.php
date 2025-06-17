@@ -24,6 +24,8 @@ Route::apiResource('marcas', 'MarcaController');
 Route::apiResource('medidas', 'MedidaController');
 Route::apiResource('categorias', 'CategoriaController');
 Route::apiResource('productos', 'ProductoController');
+Route::apiResource('documentos', 'DocumentoController');
+Route::apiResource('clientes', 'ClienteController');
 
 // Route::put('tareas/{tarea}', 'TareaController@update');
 
