@@ -151,6 +151,7 @@
         <div class="content-overlay"></div>
         <div class="content-wrapper">
             <div class="content-body">
+
                 <div class="app-content-overlay"></div>
                 <div class="todo-app-area">
                    <div class="row">
@@ -158,7 +159,7 @@
                             <div class="row mt-2">
                                 <div class="col-12">
                                     <fieldset class="form-group position-relative has-icon-left m-0 flex-grow-1 ">
-                                        <input type="text" class="form-control"  placeholder="Buscar...">
+                                        <input type="text" class="form-control"  placeholder="Buscar..." v-model="buscar">
                                         <div class="form-control-position">
                                             <i class="ft-search"></i>
                                         </div>
@@ -166,80 +167,19 @@
                                 </div>
                                 <div class="col-12 mt-2">
                                     <div class="row">
-                                        <div class="col-2">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    producto 2
+                                       <template v-for="m in filtroProductos">
+                                            <div class="col-2">
+                                                <div class="card card-producto" @click="AgregarProductoCarrito(m)">
+                                                    <div class="card-body">
+                                                        <strong>{{m.codigo_barra}}</strong>
+                                                        <hr>
+                                                        {{m.name}}
+                                                        <hr>
+                                                        <strong>S/ {{m.precio}}</strong>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-2">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    producto 2
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-2">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    producto 2
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-2">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    producto 2
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-2">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    producto 2
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-2">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    producto 2
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-2">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <strong>Codigo de Barra</strong>
-                                                    <hr>
-                                                    producto 2
-                                                    <hr>
-                                                    <strong>Precio</strong>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-2">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    producto 2
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-2">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    producto 2
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-2">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    producto 2
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </template>
                                     </div>
                                 </div>
                             </div>
@@ -254,27 +194,50 @@
                                                 <th scope="col">Producto</th>
                                                 <th scope="col">Cantidad</th>
                                                 <th scope="col">Precio</th>
+                                                <th scope="col">Descuento</th>
                                                 <th scope="col">Sub Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
+                                            <tr v-for="(m,index) in CarritoModel">
                                                 <td>
                                                 
-                                                    <i class="ft-trash-2" @click="EliminarProducto(producto.id)"></i>
+                                                    <i class="ft-trash-2" @click="EliminarProducto(index)"></i>
                                                 </td>                                           
-                                                <td>Producto 1</td>
-                                                <td>1</td>
-                                                <td>1</td>
+                                                <td>{{m.name}}</td>
+                                                <td>{{m.cantidad}}</td>
+                                                <td>S/ {{m.precio}}</td>
+                                                <td>
+                                                    <input type="text" class="form-control form-control-sm" >
+                                                </td>
+                                                <td>S/ {{m.subtotal}}</td>
                                             </tr>
                                         </tbody>
                                         <tfoot>
+                                             <tr>
+                                                <td colspan="5" class="text-right"><h6><strong>Descuento</strong></h6></td>
+                                                <td><h6><strong>S/ {{Total}}</strong> </h6></td>
+                                            </tr>
                                             <tr>
-                                                <td colspan="4">Total</td>
-                                                <td>0</td>
+                                                <td colspan="5" class="text-right"><h6><strong>Subtotal</strong></h6></td>
+                                                <td><h6><strong>S/ {{Total}}</strong> </h6></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5" class="text-right"><h6><strong>IGV</strong></h6></td>
+                                                <td><h6><strong>S/ {{Total}}</strong> </h6></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5" class="text-right"><h5><strong>TOTAL</strong></h5></td>
+                                                <td><h5><strong>S/ {{Total}}</strong> </h5></td>
                                             </tr>
                                         </tfoot>
                                     </table>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="">Descuento Global (%)</label>
+                                        <input type="text" class="form-control form-control-sm" v-model="DescuentoGlobal">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -296,9 +259,8 @@
         //data sirve para almacenar los datos en una aplicacion de vue
         data(){
             return {
-                documentos:[],
-                clientes:[],
-               
+                productos:[],
+                carrito:[],
                 model:{
                     name:'',
                     apellido:'',
@@ -315,7 +277,27 @@
             }
         },
         computed:{
-          
+            filtroProductos(){
+                if(this.buscar==""){
+                    return this.productos
+                }else{
+                    return this.productos.filter((producto)=>{
+                        return producto.name.toLowerCase().indexOf(this.buscar.toLowerCase())>-1 || producto.codigo_barra.toLowerCase().indexOf(this.buscar.toLowerCase())>-1
+                    })
+                }
+            },
+            CarritoModel(){
+                return this.carrito.map((m)=>{
+                    m.subtotal = Number(m.precio * m.cantidad).toFixed(2)
+                    return m
+                })
+            },
+            Total(){
+                let total = this.CarritoModel.reduce((a,b)=>{
+                    return Number(a) + Number(b.subtotal)
+                },0)
+                return Number(total).toFixed(2)
+            }
         },
         //los metodos que le dan dinamismo a la aplicacion se le conoce tambien como funciones 
         methods:{
@@ -331,67 +313,23 @@
                 const respuesta = await axios.get("{{url('/')}}"+'/api/'+path);
                 return respuesta.data
             },
-            async GuardarProducto(){
-                let respuesta = await axios.post("{{url('/')}}"+'/api/clientes',this.model);
-                await this.obtenerclientes();
-                // this.clientes.push(respuesta.data);
-                this.model.name = '';
-                this.model.apellido = '';
-                this.model.n_documento = '';
-                this.model.correo = '';
-                this.model.telefono = '';
-                this.model.documento_id = 0;
-                this.showSidebar = false; 
+            AgregarProductoCarrito(producto){
+                let item = {...producto};
+                let buscarCoincidencia = this.carrito.find((m)=>{
+                    return m.id == item.id
+                })
+                if(buscarCoincidencia){
+                    buscarCoincidencia.cantidad++ // buscarCoincidencia.cantidad = buscarCoincidencia.cantidad + 1
+                    return
+                }else{
+                    item.cantidad = 1
+                    item.descuento = 0
+                    this.carrito.push(item);
+                } 
             },
-            async ActualizarProducto(){
-                let respuesta = await axios.put("{{url('/')}}"+'/api/clientes/'+this.model.id,this.model);
-                await this.obtenerclientes();
-                this.model.name = '';
-                this.model.apellido = '';
-                this.model.n_documento = '';
-                this.model.correo = '';
-                this.model.telefono = '';
-                this.model.documento_id = 0;
-                this.showSidebar = false; 
-            },
-            EliminarProducto(id){ 
-                
-               const swalWithBootstrapButtons = Swal.mixin({
-                    customClass: {
-                        confirmButton: "btn btn-success",
-                        cancelButton: "btn btn-danger"
-                    },
-                    buttonsStyling: false
-                });
-                swalWithBootstrapButtons.fire({
-                title: "¿Estas seguro de eliminar?",
-                text: "Si eliminas, este cambio es irreversible!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Si, Eliminar!",
-                cancelButtonText: "No, cancelar!",
-                reverseButtons: true
-                }).then(async (result) => {
-                    if (result.isConfirmed) {
-                        let respuesta = await axios.delete("{{url('/')}}"+'/api/clientes/'+id);
-                        await this.obtenerclientes();
-                        swalWithBootstrapButtons.fire({
-                            title: "Eliminado!",
-                            text: "Tu Cliente ha sido eliminada.",
-                            icon: "success",
-                            timer:1000
-                        });
-                    } 
-                });
-            },
-           
-            SeleccionarProducto(producto){
-                this.model = producto;
-                this.actualizar = true;
-                this.showSidebar = true;
-            },
-           
-
+            EliminarProducto(index){
+                this.carrito.splice(index,1)
+            }            
         },
         
         mounted(){
@@ -399,10 +337,10 @@
             this.$nextTick(async function() {
                 await this.obtenerclientes();
                 await Promise.all([
-                    this.get_data('documentos'),
+                    this.get_data('productos'),
      
                 ]).then((values) => {
-                    this.documentos = values[0];
+                    this.productos = values[0];
              
                 })
             });

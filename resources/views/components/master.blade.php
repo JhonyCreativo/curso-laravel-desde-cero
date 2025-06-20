@@ -3,10 +3,13 @@
 <head>
     <x-assets.style/>
     <style>
-    @media (min-width: 992px) {
+        @media (min-width: 992px) {
             body.vertical-layout.vertical-menu-modern .content, body.vertical-layout.vertical-menu-modern .footer {
                 margin-left: 0 !important;
             }
+        }
+        .card-producto{
+            cursor: pointer;
         }
     </style>
 </head>
